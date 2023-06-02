@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -name "*.html" -type f -exec sh -c 'cp --update "$0" ../' {} \+
+cp -u "*.html" ..
