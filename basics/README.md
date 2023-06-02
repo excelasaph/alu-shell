@@ -1,1 +1,0 @@
-files concerning shell, basics
