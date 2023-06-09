@@ -1,0 +1,3 @@
+#!/bin/bash
+echo $((16#$(echo $WATER | tr a-z 0-9a-q) + 16#$(echo $STIR | tr a-z 0-9a-q))) | tr 0-9a-p a-iz
+
