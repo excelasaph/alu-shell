@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# A bash script that displays Best School and then Hi on a new line.
+count=1
+check=10
+while [ $count -le $check ];
+do
+	if [ $count = 9 ];
+	then
+		echo "Best School"
+		echo "Hi"
+	else
+		echo "Best School"
+	fi
+	((INCREMENT++))
+done
