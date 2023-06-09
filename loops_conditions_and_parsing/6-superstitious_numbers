@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#Bash script that displays the time for 12 hours and 59 minutes
+INCREMENT=1
+CHECK=20
+while [ $INCREMENT -le $CHECK ];
+do
+	case $INCREMENT in
+		4)
+			echo "$INCREMENT"
+			echo "bad luck from China"
+			;;
+		9)
+			echo "$INCREMENT"
+			echo "bad luck from Japan"
+			;;
+		17)
+			echo "$INCREMENT"
+			echo "bad luck from Italy"
+			;;
+		*)
+			echo "$INCREMENT"
+			;;
+	esac
+	((INCREMENT++))
+done
