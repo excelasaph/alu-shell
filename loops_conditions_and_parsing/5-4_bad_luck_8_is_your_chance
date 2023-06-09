@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# bash script that loops from 1 -10
+increase=1
+check=10
+while [ $increase -le $check ];
+do
+	if [ $increase = 4 ];
+	then
+		echo "bad luck"
+	elif [ $increase = 8 ];
+	then
+		echo "good luck"
+	else
+		echo "Best School"
+	fi
+	((increase++))
+done
