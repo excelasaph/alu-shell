@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# unti loop for Best School
+count=0
+check=10
+until [ $count -ge $check ];
+do
+	echo "Best School"
+	((count++))
+done
