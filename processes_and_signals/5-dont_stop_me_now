@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# A Bash script that stops to infinity and beyond process
+PROGRAM="4-to_infinity_and_beyond"
+PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}'| tail -n 1)"
+kill -15 "$PID"
