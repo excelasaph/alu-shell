@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# A Bash script that stops 4-to_infinity_and_beyond process.
+PROGRAM="7-highlander"
+PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}'| tail -n 1)"
+kill -SIGKILL "$PID"
