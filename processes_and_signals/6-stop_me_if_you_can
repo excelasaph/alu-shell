@@ -3,6 +3,6 @@
 PROGRAM="4-to_infinity_and_beyond"
 PATTERN="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $8}')"
 #echo "$PATTERN"
-echo "Never run it without making sure that a command is running"
-echo "This could cause unusual behaviour when running it again!!!"
+#echo "Never run it without making sure that a command is running"
+#echo "This could cause unusual behaviour when running it again!!!"
 pkill -15 "$PATTERN"
