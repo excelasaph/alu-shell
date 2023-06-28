@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#A Bash script that displays To infinity and beyond indefinitely.
+# Write a Bash script that displays To infinity and beyond indefinitely.
 START=0
 END=1
 
@@ -9,3 +9,4 @@ while [ $START -lt $END ];
 do
 	echo "To infinity and beyond"
 	sleep 2
+done
