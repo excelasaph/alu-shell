@@ -1,48 +1,32 @@
 #!/usr/bin/env bash
-#Write Bash (init) script 11-manage_my_process that manages manage_my_process. (both files need to be pushed to git)
-PID_FILE="/var/run/my_process.pid"
-
-if [ -z "$1" ]; then
-    echo "Usage: $0 {start|stop|restart}"
-    exit 1
+# Write Bash (init) script 11-manage_my_process that manages manage_my_process. (both files need to be pushed to git)
+if [ -z "$1" ];
+then
+        echo "Usage: manage_my_process {start|stop|restart}"
+	exit
 fi
 
-if [ "$1" = "start" ]; then
-    if [ -f "$PID_FILE" ]; then
-        echo "manage_my_process is already running."
-        exit 1
-    fi
-
-    ./manage_my_process &
-    echo "$!" > "$PID_FILE"
-    echo "manage_my_process started"
-
-elif [ "$1" = "stop" ]; then
-    if [ -f "$PID_FILE" ]; then
-        PID="$(cat "$PID_FILE")"
-        kill "$PID"
-        rm -f "$PID_FILE"
-        echo "manage_my_process stopped"
-    else
-        echo "manage_my_process is not running"
-    fi
-
-elif [ "$1" = "restart" ]; then
-    if [ -f "$PID_FILE" ]; then
-        PID="$(cat "$PID_FILE")"
-        kill "$PID"
-        rm -f "$PID_FILE"
+if [ "$1" = "start" ];
+then
         ./manage_my_process &
-        echo "$!" > "$PID_FILE"
-        echo "manage_my_process restarted"
-    else
-        echo "manage_my_process is not running. Starting a new instance."
-        ./manage_my_process &
-        echo "$!" > "$PID_FILE"
+        echo "$$" >> /var/run/my_process.pid
         echo "manage_my_process started"
-    fi
 
-else
-    echo "Usage: $0 {start|stop|restart}"
-    exit 1
+elif [ "$1" = "stop" ];
+then
+        PROGRAM="manage_my_process"
+       	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
+        kill -SIGTERM "$PID"
+	rm -f /var/run/my_process.pid
+        echo "manage_my_process stopped"
+
+elif [ "$1" = "restart" ];
+then
+        PROGRAM="manage_my_process"
+	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
+        kill -SIGTERM "$PID"
+	rm -f /var/run/my_process.pid
+        ./manage_my_process &
+        echo "$$" >> /var/run/my_process.pid
+        echo "manage_my_process restarted"
 fi
