@@ -1,32 +1,38 @@
 #!/usr/bin/env bash
 # Write Bash (init) script 11-manage_my_process that manages manage_my_process. (both files need to be pushed to git)
-if [ -z "$1" ];
-then
-        echo "Usage: manage_my_process {start|stop|restart}"
-	exit
+
+if [ -z "$1" ]; then
+    echo "Usage: manage_my_process {start|stop|restart}"
+    exit
 fi
 
-if [ "$1" = "start" ];
-then
-        ./manage_my_process &
-        echo "$$" >> /var/run/my_process.pid
-        echo "manage_my_process started"
+if [ "$1" = "start" ]; then
+    ./manage_my_process &
+    echo "$$" >> /var/run/my_process.pid
+    echo "manage_my_process started"
 
-elif [ "$1" = "stop" ];
-then
-        PROGRAM="manage_my_process"
-       	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
+elif [ "$1" = "stop" ]; then
+    PROGRAM="manage_my_process"
+    PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
+    
+    if [ -n "$PID" ]; then
         kill -SIGTERM "$PID"
-	rm -f /var/run/my_process.pid
+        rm -f /var/run/my_process.pid
         echo "manage_my_process stopped"
+    else
+        echo "No running process found"
+    fi
 
-elif [ "$1" = "restart" ];
-then
-        PROGRAM="manage_my_process"
-	PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
+elif [ "$1" = "restart" ]; then
+    PROGRAM="manage_my_process"
+    PID="$(ps -ef | awk -v file="$PROGRAM" '$NF ~file {print $2}' | tail -n 1)"
+    
+    if [ -n "$PID" ]; then
         kill -SIGTERM "$PID"
-	rm -f /var/run/my_process.pid
-        ./manage_my_process &
-        echo "$$" >> /var/run/my_process.pid
-        echo "manage_my_process restarted"
+        rm -f /var/run/my_process.pid
+    fi
+    
+    ./manage_my_process &
+    echo "$$" >> /var/run/my_process.pid
+    echo "manage_my_process restarted"
 fi
